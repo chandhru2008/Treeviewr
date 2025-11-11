@@ -1,5 +1,5 @@
 import HierarchyTree from "./components/HierarchyTree";
-import { hierarchyData } from "./data/sampleData";
+import { hierarchyData } from "./data/sampledata";
 
 function App() {
   return (
