@@ -11,32 +11,31 @@ const HierarchyTree: React.FC<HierarchyTreeProps> = ({
   searchQuery,
 }) => {
   return (
-    <div style={{ paddingLeft: '16px' }}>
+    <div style={{ paddingLeft: "16px" }}>
       {Object.keys(data).map((key) => {
         const currentPath = path ? `${path}/${key}` : key;
         const hasChildren = Object.keys(data[key] || {}).length > 0;
         const isExpanded = expanded[currentPath];
-
         const isMatch =
-          searchQuery &&
-          key.toLowerCase().includes(searchQuery.toLowerCase());
+          searchQuery && key.toLowerCase().includes(searchQuery.toLowerCase());
 
         return (
           <div key={currentPath} className="my-1">
             <div
               onClick={() => hasChildren && toggleExpand(currentPath)}
-              className={`flex items-center cursor-pointer px-2 py-1 rounded-md ${
-                hasChildren ? "hover:bg-gray-100" : ""
-              } ${isMatch ? "bg-yellow-200" : ""}`}
+              className={`flex items-center cursor-pointer px-2 py-1 rounded-md transition-colors duration-200
+                ${hasChildren ? "hover:bg-gray-100 dark:hover:bg-gray-700" : ""}
+                ${isMatch ? "bg-yellow-200 dark:bg-yellow-600" : ""}
+              `}
             >
               <span className="mr-2">
                 {hasChildren ? (isExpanded ? "📂" : "📁") : "📄"}
               </span>
-              <span className={`font-medium`}>{key}</span>
+              <span className="font-medium">{key}</span>
             </div>
 
             {hasChildren && isExpanded && (
-              <div className="border-l border-gray-200 ml-4 transition-all duration-300 ease-in-out">
+              <div className="border-l border-gray-200 dark:border-gray-700 ml-4 transition-all duration-300 ease-in-out">
                 <HierarchyTree
                   data={data[key]}
                   level={level + 1}
@@ -53,7 +52,6 @@ const HierarchyTree: React.FC<HierarchyTreeProps> = ({
     </div>
   );
 };
-
 
 const HierarchyTreeWrapper: React.FC<{ data: Record<string, any> }> = ({
   data,
@@ -91,7 +89,7 @@ const HierarchyTreeWrapper: React.FC<{ data: Record<string, any> }> = ({
     const newExpanded: Record<string, boolean> = {};
     paths.forEach((fullPath) => {
       const parts = fullPath.split("/");
-      parts.pop(); 
+      parts.pop();
       let parentPath = "";
       for (const part of parts) {
         parentPath = parentPath ? `${parentPath}/${part}` : part;
@@ -112,7 +110,7 @@ const HierarchyTreeWrapper: React.FC<{ data: Record<string, any> }> = ({
   }, [searchQuery, data]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
       <HierarchySearch onSearch={setSearchQuery} />
       <HierarchyTree
         data={data}
