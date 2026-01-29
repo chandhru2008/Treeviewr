@@ -9,7 +9,7 @@ const Header = () => {
 
       <button
         onClick={toggleTheme}
-        className={`relative flex items-center w-20 h-9 rounded-full px-2 transition-all duration-300 border
+        className={`relative flex items-center w-20 h-9 rounded-full px-2 transition-all duration-300 border cursor-pointer
           ${theme === "light"
             ? "bg-white border-gray-300 text-gray-800 hover:bg-gray-100"
             : "bg-gray-800 border-gray-600 text-gray-100 hover:bg-gray-700"
